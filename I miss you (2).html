@@ -1,0 +1,152 @@
+<html>
+<head>
+  <title>Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      transition: background-color 0.3s ease;
+      background-color: #f5f5f5;
+    }
+ 
+    .container {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: background-color 0.3s ease;
+      transform: perspective(800px) rotateX(10deg);
+    }
+ 
+    .result {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 200px;
+      text-align: right;
+      font-size: 18px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+ 
+    .calculator {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 5px;
+      width: 200px;
+    }
+ 
+    .button {
+      padding: 10px;
+      text-align: center;
+      background-color: #eee;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+ 
+    .button:hover {
+      background-color: #ddd;
+    }
+ 
+    .dark-theme {
+      background-color: #222;
+      color: #fff;
+    }
+ 
+    .dark-theme .button {
+      background-color: #333;
+      color: #fff;
+    }
+ 
+    .dark-theme body {
+      background-color: #333;
+    }
+ 
+    .dark-theme .container {
+      background-color: #333;
+    }
+  </style>
+   <script>
+    var result = "";
+    var holdKeyTimeout;
+    var holdKeyInterval;
+    var holdKey;
+ 
+    function updateResult(value) {
+      result += value;
+      var resultElement = document.getElementById("result");
+      resultElement.innerText = result;
+    }
+ 
+    function deleteLastCharacter() {
+      result = result.slice(0, -1);
+      var resultElement = document.getElementById("result");
+      resultElement.innerText = result;
+    }
+ 
+    function clearResult() {
+      result = "";
+      var resultElement = document.getElementById("result");
+      resultElement.innerText = result;
+    }
+ 
+    function calculate() {
+      result = "I miss you and I Love You so much my Nurse kovivi";
+      var resultElement = document.getElementById("result");
+      resultElement.innerText = result;
+    }
+ 
+    function holdKeyButton(value) {
+      holdKey = value;
+      holdKeyTimeout = setTimeout(function() {
+        holdKeyInterval = setInterval(function() {
+          updateResult(holdKey);
+        }, 100);
+      }, 500);
+    }
+ 
+    function releaseKeyButton() {
+      clearTimeout(holdKeyTimeout);
+      clearInterval(holdKeyInterval);
+    }
+ 
+    function toggleTheme() {
+      var body = document.querySelector("body");
+      var container = document.querySelector(".container");
+      body.classList.toggle("dark-theme");
+      container.classList.toggle("dark-theme");
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Calculator</h2>
+    <div class="result" id="result"></div>
+    <div class="calculator">
+      <div class="button" onmousedown="holdKeyButton('7')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('7')">7</div>
+      <div class="button" onmousedown="holdKeyButton('8')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('8')">8</div>
+      <div class="button" onmousedown="holdKeyButton('9')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('9')">9</div>
+      <div class="button" onclick="updateResult('/')">/</div>
+      <div class="button" onmousedown="holdKeyButton('4')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('4')">4</div>
+      <div class="button" onmousedown="holdKeyButton('5')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('5')">5</div>
+      <div class="button" onmousedown="holdKeyButton('6')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('6')">6</div>
+      <div class="button" onclick="updateResult('*')">*</div>
+      <div class="button" onmousedown="holdKeyButton('1')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('1')">1</div>
+      <div class="button" onmousedown="holdKeyButton('2')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('2')">2</div>
+      <div class="button" onmousedown="holdKeyButton('3')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('3')">3</div>
+      <div class="button" onclick="updateResult('-')">-</div>
+      <div class="button" onmousedown="holdKeyButton('0')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="updateResult('0')">0</div>
+      <div class="button" onclick="updateResult('.')">.</div>
+      <div class="button" onclick="updateResult('+')">+</div>
+      <div class="button" onmousedown="holdKeyButton('Del')" onmouseup="releaseKeyButton()" onmouseleave="releaseKeyButton()" onclick="deleteLastCharacter()">Del</div>
+      <div class="button" onclick="calculate()">=</div>
+      <div class="button" onclick="clearResult()">C</div>
+    </div>
+    <button onclick="toggleTheme()">Dark Theme & Light</button>
+  </div>
+</body>
+</html>
